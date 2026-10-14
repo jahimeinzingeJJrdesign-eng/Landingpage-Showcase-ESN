@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Background layers */
+.bg-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.base-black {
+    position: absolute;
+    inset: 0;
+    background-color: #000000;
+}
+
+/* Sharp Lychee Pink Diagonal Split matching Screenshot 2 */
+.pink-diagonal {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #000000 50%, #f99ab7 50%);
+    opacity: 0; /* Starts pitch black, fades in during scroll */
+}
+
+/* Three.js Fixed Canvas */
+#webgl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Header Navbar matching Reference 1 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem 4rem;
+    z-index: 20;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #ffffff;
+}
+
+.logo span {
+    color: #f99ab7;
+}
+
+.nav-pill {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 10px 24px;
+    border-radius: 9999px;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-pill a {
+    color: #e2e2e6;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.nav-pill a:hover {
+    color: #f99ab7;
+}
+
+.nav-btn {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 22px;
+    border-radius: 9999px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* Scroll Height Controller */
+.scroll-container {
+    position: relative;
+    width: 100%;
+    height: 250vh; /* Provides the scrub scroll distance */
+}
+
+/* Floating Initial "Scroll down" Prompt */
+.scroll-indicator {
+    position: fixed;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 15;
+    pointer-events: none;
+    opacity: 1;
+}
+
+.scroll-indicator span {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #a0a0a8;
+}
+
+.arrow-down {
+    color: #f99ab7;
+    animation: bounce 1.8s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+/* Final Layout Stage (Pinned in Viewport) */
+.content-stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 6vw;
+    z-index: 10;
+    pointer-events: none; /* Allows canvas and navigation interaction */
+}
+
+/* Left Hero Typography (Structured like Screenshot 1) */
+.hero-left {
+    max-width: 700px;
+    pointer-events: auto;
+    opacity: 0;              /* Animated in by GSAP */
+    transform: translateX(-50px);
+}
+
+.main-title {
+    font-size: clamp(3.36rem, 6.24vw, 6.72rem);
+    font-weight: 900;
+    line-height: 0.96;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 1.8rem;
+}
+
+.description {
+    font-size: clamp(1rem, 1.25vw, 1.25rem);
+    line-height: 1.55;
+    color: #d1d1d8;
+    max-width: 480px;
+    margin-bottom: 2.4rem;
+}
+
+/* Custom Lychee Gradient Pill Button */
+.cta-wrapper {
+    display: flex;
+}
+
+.btn-lychee {
+    background: linear-gradient(135deg, #f99ab7 0%, #e37498 100%);
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 16px 36px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 12px 28px rgba(249, 154, 183, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-lychee:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 16px 36px rgba(249, 154, 183, 0.55);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 1.5rem 2rem;
+    }
+    .nav-pill {
+        display: none;
+    }
+    .content-stage {
+        padding: 0 2rem;
+    }
+    .hero-left {
+        max-width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Lychee Floating Element (Positioned in Green Circle) */
+.lychee-decor {
+    position: fixed;
+    bottom: 2vh;
+    right: 9.5vw;
+    width: clamp(260px, 24vw, 360px);
+    z-index: 12; /* Sits in front */
+    pointer-events: none;
+    opacity: 0; /* Starts hidden, revealed on scroll */
+    transform: translateY(20px);
+    filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.2));
+}
